@@ -1,7 +1,9 @@
 
+import 'package:bloc_project/BLoC/login_bloc.dart';
 import 'package:bloc_project/views/view.dart';
 
 import 'widgets/widget.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Loginscreen extends StatefulWidget {
 
@@ -12,16 +14,26 @@ class Loginscreen extends StatefulWidget {
 }
 
 class _LoginscreenState extends State<Loginscreen> {
+  late LoginBloc _loginBloc;
   final emailFocusNode = FocusNode();
   final passwordFocusNode = FocusNode();
   final _loginKey = GlobalKey<FormState>();
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+    _loginBloc=LoginBloc();
+  }
     
   @override
   Widget build(BuildContext context) {
     
 
     return Scaffold(
-      body: Container(
+      body: BlocProvider( 
+      create: (_)=>_loginBloc,
+      child: Container(
         decoration: const BoxDecoration(
           gradient: LinearGradient(
             colors: [Colors.deepPurple, Colors.purpleAccent],
@@ -56,10 +68,10 @@ class _LoginscreenState extends State<Loginscreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Email", style: TextStyle(color: Colors.white, fontSize: 16),),
+                    const  Text("Email", style: TextStyle(color: Colors.white, fontSize: 16),),
                       EmailInputWidget(emailFocusNode: emailFocusNode),
                       const SizedBox(height: 16),
-                      Text("Password", style: TextStyle(color: Colors.white, fontSize: 16),),
+                     const Text("Password", style: TextStyle(color: Colors.white, fontSize: 16),),
                       PasswordInputWidget(passwordFocusNode: passwordFocusNode),
                       const SizedBox(height: 16),
                     ],
@@ -103,6 +115,7 @@ class _LoginscreenState extends State<Loginscreen> {
           ),
         ),
       ),
+      )
     );
   }
 }

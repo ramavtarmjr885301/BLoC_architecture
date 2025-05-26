@@ -50,7 +50,7 @@ class NetworkServicesApi implements BaseApiservices {
   }
 
   dynamic returnResponse(http.Response response) {
-    switch (response) {
+    switch (response.statusCode) {
       case 200:
         dynamic jsonResponse = jsonDecode(response.body);
         return jsonResponse;
